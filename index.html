@@ -5,27 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minecraft World</title>
 
+<!-- Favicon -->
+<link rel="icon" type="image/png"
+href="https://upload.wikimedia.org/wikipedia/commons/3/3a/Grass_Block_JE2_BE2.png">
+
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+:root{
+    --bg1:#4CAF50;
+    --bg2:#2E7D32;
+    --glass:rgba(255,255,255,0.15);
+    --text:white;
 }
 
 body{
-    font-family: Arial, sans-serif;
-    color:white;
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    color:var(--text);
     min-height:100vh;
+    display:flex;
+    flex-direction:column;
     overflow-x:hidden;
-    background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1e3c72);
-    background-size:400% 400%;
-    animation: bgMove 18s ease infinite;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    transition:1s;
 }
 
-@keyframes bgMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+/* END THEME */
+body.end{
+    --bg1:#2c003e;
+    --bg2:#000000;
+    --glass:rgba(150,0,200,0.15);
 }
 
 canvas{
@@ -35,260 +43,190 @@ canvas{
     z-index:-1;
 }
 
-/* HEADER */
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px 50px;
-    background:rgba(0,0,0,0.5);
-    backdrop-filter:blur(10px);
+    padding:15px 40px;
+    backdrop-filter:blur(20px);
+    background:var(--glass);
+    position:sticky;
+    top:0;
 }
 
 nav a{
-    color:white;
-    text-decoration:none;
     margin-left:20px;
-    font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
+    font-weight:bold;
+    transition:.3s;
 }
 
 nav a:hover{
-    color:#00ff88;
-}
-
-section{
-    display:none;
-    padding:80px 20px;
-    text-align:center;
-    opacity:0;
-    transform:translateY(20px);
-    transition:0.6s ease;
-}
-
-section.active{
-    display:block;
-    opacity:1;
-    transform:translateY(0);
-}
-
-.glass{
-    background:rgba(255,255,255,0.08);
-    padding:50px;
-    border-radius:20px;
-    backdrop-filter:blur(15px);
-    max-width:900px;
-    margin:auto;
-    box-shadow:0 15px 40px rgba(0,0,0,0.6);
-}
-
-h1{
-    margin-bottom:20px;
-    font-size:32px;
-}
-
-h2{
-    margin:30px 0 15px 0;
-}
-
-p{
-    line-height:1.6;
-    margin-bottom:15px;
+    opacity:0.7;
 }
 
 button{
-    margin-top:20px;
-    padding:14px 35px;
-    border-radius:40px;
+    padding:8px 18px;
+    border-radius:20px;
     border:none;
-    background:linear-gradient(45deg,#00ff88,#00ccff);
-    color:black;
-    font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
+    font-weight:bold;
 }
 
-button:hover{
-    transform:scale(1.1);
-    box-shadow:0 0 20px #00ff88;
+.glass{
+    backdrop-filter:blur(25px);
+    background:var(--glass);
+    border-radius:25px;
+    padding:40px;
+    margin:40px auto;
+    width:90%;
+    max-width:1000px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    animation:fadeUp 1s ease;
 }
 
-.gallery{
-    display:flex;
-    justify-content:center;
-    gap:25px;
-    flex-wrap:wrap;
-    margin-top:30px;
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(40px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
-.gallery img{
-    width:280px;
-    border-radius:15px;
-    transition:0.4s;
-}
-
-.gallery img:hover{
-    transform:scale(1.07) rotate(1deg);
-}
-
-input,textarea{
+img{
     width:100%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:10px;
-    border:none;
+    border-radius:20px;
+    margin:20px 0;
+    transition:.4s;
 }
 
-textarea{
-    resize:none;
-    height:120px;
+img:hover{
+    transform:scale(1.03);
 }
 
 footer{
-    text-align:center;
+    margin-top:auto;
     padding:20px;
-    background:rgba(0,0,0,0.6);
-    margin-top:40px;
+    text-align:center;
+    backdrop-filter:blur(20px);
+    background:var(--glass);
+}
+
+h1,h2{
+    margin-bottom:20px;
 }
 </style>
 </head>
+
 <body>
 
 <canvas id="particles"></canvas>
 
 <header>
-    <h2>🌍 Minecraft World</h2>
-    <nav>
-        <a onclick="showPage('home')">Головна</a>
-        <a onclick="showPage('about')">Про гру</a>
-        <a onclick="showPage('modes')">Режими</a>
-        <a onclick="showPage('gallery')">Галерея</a>
-        <a onclick="showPage('contact')">Контакти</a>
-    </nav>
+<h2>⛏ Minecraft World</h2>
+<nav>
+<a onclick="scrollToId('home')">Головна</a>
+<a onclick="scrollToId('history')">Історія</a>
+<button onclick="toggleTheme()">🌍 / 🌌</button>
+</nav>
 </header>
 
-<!-- HOME -->
-<section id="home" class="active">
-<div class="glass">
-<h1>Ласкаво просимо у світ <strong>:contentReference[oaicite:0]{index=0}</strong></h1>
+<div class="glass" id="home">
+<h1>Світ гри Minecraft</h1>
 <p>
-Minecraft — це легендарна гра, яка дозволяє гравцям створювати власні світи,
-досліджувати біоми, будувати міста, механізми та навіть комп'ютери з редстоуну.
+<strong>:contentReference[oaicite:0]{index=0}</strong> — це одна з найпопулярніших ігор у світі,
+створена компанією <strong>:contentReference[oaicite:1]{index=1}</strong>.
+Гра дозволяє будувати, досліджувати, виживати та створювати власні світи.
 </p>
-<p>
-Гра була створена компанією <strong>:contentReference[oaicite:1]{index=1}</strong>
-і стала однією з найпопулярніших ігор у світі.
-</p>
-<button onclick="alert('⛏️ Пригода починається!')">Почати пригоду</button>
-</div>
-</section>
 
-<!-- ABOUT -->
-<section id="about">
-<div class="glass">
-<h1>Про Minecraft</h1>
-<p>
-У Minecraft немає обмежень — ти можеш будувати замки, ферми,
-створювати автоматичні системи та досліджувати безмежний світ.
-</p>
-<h2>Особливості гри:</h2>
-<p>• Відкритий світ без меж</p>
-<p>• Багато біомів (ліси, пустелі, океани, Nether, End)</p>
-<p>• Система крафту та виживання</p>
-<p>• Мультиплеєр та сервери</p>
-</div>
-</section>
-
-<!-- MODES -->
-<section id="modes">
-<div class="glass">
-<h1>Режими гри</h1>
-<h2>Survival</h2>
-<p>Виживай, добувай ресурси та бийся з мобами.</p>
-<h2>Creative</h2>
-<p>Необмежені ресурси для будівництва.</p>
-<h2>Hardcore</h2>
-<p>Одна смерть — і світ видаляється.</p>
-<h2>Adventure</h2>
-<p>Режим для карт і сюжетних пригод.</p>
-</div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-<div class="glass">
-<h1>Галерея</h1>
-<div class="gallery">
 <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png">
-<img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Survival_KeyArt.jpg">
-<img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Creative_KeyArt.jpg">
-</div>
-</div>
-</section>
 
-<!-- CONTACT -->
-<section id="contact">
-<div class="glass">
-<h1>Контакти</h1>
-<form action="https://formsubmit.co/victorplay0911@gmail.com" method="POST">
-<input type="text" name="name" placeholder="Твоє ім'я" required>
-<input type="email" name="email" placeholder="Email" required>
-<textarea name="message" placeholder="Повідомлення" required></textarea>
-<input type="hidden" name="_captcha" value="false">
-<button type="submit">Відправити</button>
-</form>
+<p>
+У грі існують різні виміри: Верхній світ, Пекло (Nether) та загадковий Енд.
+Гравці можуть добувати ресурси, крафтити предмети, боротися з мобами та створювати механізми.
+</p>
 </div>
-</section>
 
-<footer>© 2026 Minecraft Fan Site</footer>
+<div class="glass" id="history">
+<h1>Історія Minecraft</h1>
+
+<h2>Початок</h2>
+<p>
+Гру створив програміст <strong>:contentReference[oaicite:2]{index=2}</strong>
+у 2009 році. Спочатку це був невеликий інді-проєкт.
+</p>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Markus_Persson_2011.jpg">
+
+<h2>Офіційний реліз</h2>
+<p>
+У 2011 році відбувся повний реліз гри. Вона швидко стала світовим феноменом.
+</p>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/43/MineCon_2011.jpg">
+
+<h2>Покупка Microsoft</h2>
+<p>
+У 2014 році компанія <strong>:contentReference[oaicite:3]{index=3}</strong>
+придбала Mojang за 2,5 мільярди доларів.
+</p>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg">
+
+<h2>Сьогодні</h2>
+<p>
+Станом на сьогодні Minecraft є однією з найпродаваніших ігор в історії.
+Гра постійно отримує оновлення, нові біоми, мобів та механіки.
+</p>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Grass_Block_JE2_BE2.png">
+
+</div>
+
+<footer>
+© 2026 Minecraft Fan Site
+</footer>
 
 <script>
-function showPage(id){
-document.querySelectorAll("section").forEach(sec=>{
-sec.classList.remove("active");
-});
-setTimeout(()=>{
-document.getElementById(id).classList.add("active");
-},50);
+function scrollToId(id){
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
 }
 
-/* ===== PARTICLES ===== */
+function toggleTheme(){
+    document.body.classList.toggle("end");
+}
+
+/* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
 let particles=[];
-const count=80;
 
-for(let i=0;i<count;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-size:Math.random()*2+1,
-speedY:Math.random()*0.5+0.2
-});
+function resize(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+for(let i=0;i<80;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        d:Math.random()*1
+    });
 }
 
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,255,255,0.6)";
-particles.forEach(p=>{
-p.y+=p.speedY;
-if(p.y>canvas.height) p.y=0;
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-ctx.fill();
-});
-requestAnimationFrame(animate);
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="white";
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+        p.y+=p.d;
+        if(p.y>canvas.height)p.y=0;
+    });
+    requestAnimationFrame(draw);
 }
-animate();
-
-window.addEventListener("resize",()=>{
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-});
+draw();
 </script>
 
 </body>
