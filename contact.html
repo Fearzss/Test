@@ -2,12 +2,13 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Контакти</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
+<header class="glass">
     <h1>Контакти</h1>
     <nav>
         <a href="index.html">Головна</a>
@@ -18,11 +19,20 @@
 </header>
 
 <section class="content">
-    <div class="card">
-        <h2>Зв'яжись зі мною</h2>
-        <input type="text" placeholder="Твоє ім'я">
-        <input type="email" placeholder="Email">
-        <button onclick="alert('Повідомлення надіслано!')">Надіслати</button>
+    <div class="glass box">
+        <h2>Напиши мені</h2>
+
+        <form action="https://formsubmit.co/victorplay0911@gmail.com" method="POST">
+            <input type="text" name="name" placeholder="Твоє ім'я" required>
+            <input type="email" name="email" placeholder="Твій Email" required>
+            <textarea name="message" placeholder="Повідомлення" required></textarea>
+
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="Нове повідомлення з сайту Minecraft">
+
+            <button type="submit">Відправити</button>
+        </form>
+
     </div>
 </section>
 
