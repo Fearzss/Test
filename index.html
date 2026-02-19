@@ -4,230 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minecraft World</title>
-
-<!-- Favicon -->
-<link rel="icon" type="image/png"
-href="https://upload.wikimedia.org/wikipedia/commons/3/3a/Grass_Block_JE2_BE2.png">
-
-<style>
-:root{
-    --bg1:#4CAF50;
-    --bg2:#2E7D32;
-    --glass:rgba(255,255,255,0.15);
-    --text:white;
-}
-
-body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    color:var(--text);
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    overflow-x:hidden;
-    background:linear-gradient(135deg,var(--bg1),var(--bg2));
-    transition:1s;
-}
-
-/* END THEME */
-body.end{
-    --bg1:#2c003e;
-    --bg2:#000000;
-    --glass:rgba(150,0,200,0.15);
-}
-
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
-}
-
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 40px;
-    backdrop-filter:blur(20px);
-    background:var(--glass);
-    position:sticky;
-    top:0;
-}
-
-nav a{
-    margin-left:20px;
-    cursor:pointer;
-    font-weight:bold;
-    transition:.3s;
-}
-
-nav a:hover{
-    opacity:0.7;
-}
-
-button{
-    padding:8px 18px;
-    border-radius:20px;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.glass{
-    backdrop-filter:blur(25px);
-    background:var(--glass);
-    border-radius:25px;
-    padding:40px;
-    margin:40px auto;
-    width:90%;
-    max-width:1000px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.5);
-    animation:fadeUp 1s ease;
-}
-
-@keyframes fadeUp{
-    from{opacity:0;transform:translateY(40px);}
-    to{opacity:1;transform:translateY(0);}
-}
-
-img{
-    width:100%;
-    border-radius:20px;
-    margin:20px 0;
-    transition:.4s;
-}
-
-img:hover{
-    transform:scale(1.03);
-}
-
-footer{
-    margin-top:auto;
-    padding:20px;
-    text-align:center;
-    backdrop-filter:blur(20px);
-    background:var(--glass);
-}
-
-h1,h2{
-    margin-bottom:20px;
-}
-</style>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/3/3a/Grass_Block_JE2_BE2.png">
 </head>
-
 <body>
-
-<canvas id="particles"></canvas>
 
 <header>
 <h2>⛏ Minecraft World</h2>
 <nav>
 <a onclick="scrollToId('home')">Головна</a>
 <a onclick="scrollToId('history')">Історія</a>
-<button onclick="toggleTheme()">🌍 / 🌌</button>
+<a onclick="scrollToId('gallery')">Галерея</a>
+<a onclick="scrollToId('contact')">Контакти</a>
 </nav>
+<button class="theme-btn" onclick="toggleTheme()">🌍 / 🌌</button>
 </header>
 
-<div class="glass" id="home">
+<section id="home">
+<div class="glass">
 <h1>Світ гри Minecraft</h1>
-<p>
-<strong>:contentReference[oaicite:0]{index=0}</strong> — це одна з найпопулярніших ігор у світі,
-створена компанією <strong>:contentReference[oaicite:1]{index=1}</strong>.
-Гра дозволяє будувати, досліджувати, виживати та створювати власні світи.
-</p>
-
+<p>Minecraft — це популярна гра-пісочниця від Mojang Studios. Ти можеш будувати, виживати, досліджувати і створювати власні світи.</p>
 <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png">
-
-<p>
-У грі існують різні виміри: Верхній світ, Пекло (Nether) та загадковий Енд.
-Гравці можуть добувати ресурси, крафтити предмети, боротися з мобами та створювати механізми.
-</p>
 </div>
+</section>
 
-<div class="glass" id="history">
+<section id="history">
+<div class="glass">
 <h1>Історія Minecraft</h1>
-
 <h2>Початок</h2>
-<p>
-Гру створив програміст <strong>:contentReference[oaicite:2]{index=2}</strong>
-у 2009 році. Спочатку це був невеликий інді-проєкт.
-</p>
-
+<p>Гру створив Маркус Перссон у 2009 році як інді-проект.</p>
 <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Markus_Persson_2011.jpg">
-
 <h2>Офіційний реліз</h2>
-<p>
-У 2011 році відбувся повний реліз гри. Вона швидко стала світовим феноменом.
-</p>
-
+<p>2011 рік — повний реліз гри.</p>
 <img src="https://upload.wikimedia.org/wikipedia/commons/4/43/MineCon_2011.jpg">
-
-<h2>Покупка Microsoft</h2>
-<p>
-У 2014 році компанія <strong>:contentReference[oaicite:3]{index=3}</strong>
-придбала Mojang за 2,5 мільярди доларів.
-</p>
-
+<h2>Microsoft</h2>
+<p>У 2014 році Microsoft придбала Mojang Studios.</p>
 <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg">
-
-<h2>Сьогодні</h2>
-<p>
-Станом на сьогодні Minecraft є однією з найпродаваніших ігор в історії.
-Гра постійно отримує оновлення, нові біоми, мобів та механіки.
-</p>
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Grass_Block_JE2_BE2.png">
-
 </div>
+</section>
 
-<footer>
-© 2026 Minecraft Fan Site
-</footer>
+<section id="gallery">
+<div class="glass">
+<h1>Галерея</h1>
+<img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png">
+<img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Survival_KeyArt.jpg">
+<img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Creative_KeyArt.jpg">
+</div>
+</section>
 
-<script>
-function scrollToId(id){
-    document.getElementById(id).scrollIntoView({behavior:'smooth'});
-}
+<section id="contact">
+<div class="glass">
+<h1>Контакти</h1>
+<form action="https://formsubmit.co/victorplay0911@gmail.com" method="POST">
+<input type="text" name="name" placeholder="Твоє ім'я" required>
+<input type="email" name="email" placeholder="Email" required>
+<textarea name="message" placeholder="Повідомлення" required></textarea>
+<input type="hidden" name="_captcha" value="false">
+<button type="submit">Відправити</button>
+</form>
+</div>
+</section>
 
-function toggleTheme(){
-    document.body.classList.toggle("end");
-}
+<footer>© 2026 Minecraft Fan Site</footer>
 
-/* PARTICLES */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-let particles=[];
-
-function resize(){
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
-
-for(let i=0;i<80;i++){
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        r:Math.random()*2,
-        d:Math.random()*1
-    });
-}
-
-function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="white";
-    particles.forEach(p=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fill();
-        p.y+=p.d;
-        if(p.y>canvas.height)p.y=0;
-    });
-    requestAnimationFrame(draw);
-}
-draw();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
