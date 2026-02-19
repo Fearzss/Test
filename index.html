@@ -2,13 +2,14 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minecraft World</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-    <h1>MINECRAFT WORLD</h1>
+<header class="glass">
+    <h1>Minecraft World</h1>
     <nav>
         <a href="index.html">Головна</a>
         <a href="about.html">Про гру</a>
@@ -18,19 +19,16 @@
 </header>
 
 <section class="hero">
-    <h2>Ласкаво просимо у світ блоків!</h2>
-    <button onclick="playSound()">Почати пригоду</button>
+    <div class="glass box">
+        <h2>Ласкаво просимо у світ блоків</h2>
+        <p>Будуй. Виживай. Досліджуй.</p>
+        <button onclick="alert('Пригода починається! ⛏️')">Почати пригоду</button>
+    </div>
 </section>
 
 <footer>
-    © 2026 Minecraft Fan Site
+    © 2026 Fan Site про :contentReference[oaicite:0]{index=0}
 </footer>
-
-<script>
-function playSound(){
-    alert("Пригода починається! ⛏️");
-}
-</script>
 
 </body>
 </html>
