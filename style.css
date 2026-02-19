@@ -1,111 +1,121 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root{
+    --primary:#4CAF50;
+    --secondary:#2E7D32;
+    --glass:rgba(255,255,255,0.15);
+    --text:white;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    color: white;
-    min-height: 100vh;
-    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1e3c72);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    overflow-x:hidden;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    background-size:400% 400%;
+    animation:bgMove 18s ease infinite;
+    transition:1s;
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+body.end{
+    --primary:#2c003e;
+    --secondary:#000000;
+    --glass:rgba(150,0,200,0.15);
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 60px;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(10px);
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-    transition: 0.3s;
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
 }
 
-nav a:hover {
-    color: #00ff88;
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 40px;
+    backdrop-filter:blur(15px);
+    background:var(--glass);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-radius:0 0 15px 15px;
 }
 
-.hero, .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 20px;
+nav a{
+    margin-left:20px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
 }
 
-.glass {
-    background: rgba(255,255,255,0.08);
-    padding: 40px;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    max-width: 600px;
-    text-align: center;
+nav a:hover{
+    opacity:0.7;
 }
 
-button {
-    margin-top: 20px;
-    padding: 12px 30px;
-    border-radius: 30px;
-    border: none;
-    background: linear-gradient(45deg, #00ff88, #00ccff);
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+.theme-btn{
+    position:absolute;
+    top:15px;
+    right:20px;
+    padding:10px 18px;
+    border-radius:30px;
+    border:none;
+    background:linear-gradient(135deg,#00ff88,#00ccff);
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,0.4);
+    transition:.3s;
 }
 
-button:hover {
-    transform: scale(1.1);
+.theme-btn:hover{
+    transform:scale(1.1);
 }
 
-.gallery {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 80px 20px;
-    flex-wrap: wrap;
+section{
+    display:flex;
+    justify-content:center;
+    padding:80px 20px;
 }
 
-.gallery img {
-    width: 300px;
-    border-radius: 15px;
-    transition: 0.4s;
+.glass{
+    backdrop-filter:blur(25px);
+    background:var(--glass);
+    border-radius:25px;
+    padding:40px;
+    margin:40px auto;
+    width:90%;
+    max-width:1000px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
 }
 
-.gallery img:hover {
-    transform: scale(1.05);
+h1,h2{
+    margin-bottom:20px;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: none;
+img{
+    width:100%;
+    border-radius:20px;
+    margin:20px 0;
+    transition:.4s;
 }
 
-textarea {
-    height: 100px;
-    resize: none;
+img:hover{
+    transform:scale(1.03);
 }
 
-footer {
-    text-align: center;
-    padding: 20px;
-    background: rgba(0,0,0,0.6);
+footer{
+    margin-top:auto;
+    padding:20px;
+    text-align:center;
+    backdrop-filter:blur(15px);
+    background:var(--glass);
 }
