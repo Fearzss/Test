@@ -1,14 +1,7 @@
-// Плавний скрол до секцій
-function scrollToId(id){
-    document.getElementById(id).scrollIntoView({behavior:'smooth'});
-}
-
-// Зміна тем
 function toggleTheme(){
     document.body.classList.toggle("end");
 }
 
-// Частинки
 const canvas=document.createElement("canvas");
 canvas.id="particles";
 document.body.appendChild(canvas);
