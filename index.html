@@ -4,29 +4,198 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minecraft World</title>
-<link rel="stylesheet" href="style.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    color:white;
+    min-height:100vh;
+    background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1e3c72);
+    background-size:400% 400%;
+    animation: bgMove 15s ease infinite;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(10px);
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#00ff88;
+}
+
+section{
+    display:none;
+    padding:80px 20px;
+    text-align:center;
+}
+
+section.active{
+    display:block;
+}
+
+.glass{
+    background:rgba(255,255,255,0.08);
+    padding:40px;
+    border-radius:20px;
+    backdrop-filter:blur(15px);
+    max-width:700px;
+    margin:auto;
+    box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+
+button{
+    margin-top:20px;
+    padding:12px 30px;
+    border-radius:30px;
+    border:none;
+    background:linear-gradient(45deg,#00ff88,#00ccff);
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+.gallery{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    margin-top:40px;
+}
+
+.gallery img{
+    width:300px;
+    border-radius:15px;
+    transition:0.4s;
+}
+
+.gallery img:hover{
+    transform:scale(1.07);
+}
+
+input,textarea{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    border:none;
+}
+
+textarea{
+    resize:none;
+    height:120px;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:rgba(0,0,0,0.6);
+    margin-top:40px;
+}
+</style>
+
 </head>
 <body>
 
 <header>
-    <h1>Minecraft World</h1>
+    <h2>🌍 Minecraft World</h2>
     <nav>
-        <a href="index.html">Головна</a>
-        <a href="about.html">Про гру</a>
-        <a href="gallery.html">Галерея</a>
-        <a href="contact.html">Контакти</a>
+        <a onclick="showPage('home')">Головна</a>
+        <a onclick="showPage('about')">Про гру</a>
+        <a onclick="showPage('gallery')">Галерея</a>
+        <a onclick="showPage('contact')">Контакти</a>
     </nav>
 </header>
 
-<section class="hero">
+<!-- HOME -->
+<section id="home" class="active">
     <div class="glass">
-        <h2>Ласкаво просимо у світ блоків</h2>
-        <p>Будуй. Виживай. Досліджуй.</p>
+        <h1>Ласкаво просимо у світ блоків</h1>
+        <p>Сайт про гру <strong>:contentReference[oaicite:0]{index=0}</strong></p>
         <button onclick="alert('⛏️ Пригода починається!')">Почати пригоду</button>
     </div>
 </section>
 
-<footer>© 2026 Minecraft Fan Site</footer>
+<!-- ABOUT -->
+<section id="about">
+    <div class="glass">
+        <h1>Про гру</h1>
+        <p>
+        <strong>:contentReference[oaicite:1]{index=1}</strong> — це культова гра,
+        створена компанією <strong>:contentReference[oaicite:2]{index=2}</strong>.
+        Тут можна будувати, виживати та досліджувати світ.
+        </p>
+    </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+    <div class="glass">
+        <h1>Галерея</h1>
+        <div class="gallery">
+            <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png">
+            <img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Survival_KeyArt.jpg">
+            <img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Creative_KeyArt.jpg">
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="glass">
+        <h1>Контакти</h1>
+        <form action="https://formsubmit.co/victorplay0911@gmail.com" method="POST">
+            <input type="text" name="name" placeholder="Твоє ім'я" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Повідомлення" required></textarea>
+            <input type="hidden" name="_captcha" value="false">
+            <button type="submit">Відправити</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    © 2026 Minecraft Fan Site
+</footer>
+
+<script>
+function showPage(pageId){
+    document.querySelectorAll("section").forEach(sec=>{
+        sec.classList.remove("active");
+    });
+    document.getElementById(pageId).classList.add("active");
+}
+</script>
 
 </body>
 </html>
