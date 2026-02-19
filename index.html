@@ -16,9 +16,10 @@ body{
     font-family: Arial, sans-serif;
     color:white;
     min-height:100vh;
+    overflow-x:hidden;
     background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1e3c72);
     background-size:400% 400%;
-    animation: bgMove 15s ease infinite;
+    animation: bgMove 18s ease infinite;
 }
 
 @keyframes bgMove{
@@ -27,6 +28,14 @@ body{
     100%{background-position:0% 50%;}
 }
 
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* HEADER */
 header{
     display:flex;
     justify-content:space-between;
@@ -53,26 +62,45 @@ section{
     display:none;
     padding:80px 20px;
     text-align:center;
+    opacity:0;
+    transform:translateY(20px);
+    transition:0.6s ease;
 }
 
 section.active{
     display:block;
+    opacity:1;
+    transform:translateY(0);
 }
 
 .glass{
     background:rgba(255,255,255,0.08);
-    padding:40px;
+    padding:50px;
     border-radius:20px;
     backdrop-filter:blur(15px);
-    max-width:700px;
+    max-width:900px;
     margin:auto;
-    box-shadow:0 10px 40px rgba(0,0,0,0.6);
+    box-shadow:0 15px 40px rgba(0,0,0,0.6);
+}
+
+h1{
+    margin-bottom:20px;
+    font-size:32px;
+}
+
+h2{
+    margin:30px 0 15px 0;
+}
+
+p{
+    line-height:1.6;
+    margin-bottom:15px;
 }
 
 button{
     margin-top:20px;
-    padding:12px 30px;
-    border-radius:30px;
+    padding:14px 35px;
+    border-radius:40px;
     border:none;
     background:linear-gradient(45deg,#00ff88,#00ccff);
     color:black;
@@ -83,24 +111,25 @@ button{
 
 button:hover{
     transform:scale(1.1);
+    box-shadow:0 0 20px #00ff88;
 }
 
 .gallery{
     display:flex;
     justify-content:center;
-    gap:30px;
+    gap:25px;
     flex-wrap:wrap;
-    margin-top:40px;
+    margin-top:30px;
 }
 
 .gallery img{
-    width:300px;
+    width:280px;
     border-radius:15px;
     transition:0.4s;
 }
 
 .gallery img:hover{
-    transform:scale(1.07);
+    transform:scale(1.07) rotate(1deg);
 }
 
 input,textarea{
@@ -123,15 +152,17 @@ footer{
     margin-top:40px;
 }
 </style>
-
 </head>
 <body>
+
+<canvas id="particles"></canvas>
 
 <header>
     <h2>🌍 Minecraft World</h2>
     <nav>
         <a onclick="showPage('home')">Головна</a>
         <a onclick="showPage('about')">Про гру</a>
+        <a onclick="showPage('modes')">Режими</a>
         <a onclick="showPage('gallery')">Галерея</a>
         <a onclick="showPage('contact')">Контакти</a>
     </nav>
@@ -139,62 +170,125 @@ footer{
 
 <!-- HOME -->
 <section id="home" class="active">
-    <div class="glass">
-        <h1>Ласкаво просимо у світ блоків</h1>
-        <p>Сайт про гру <strong>:contentReference[oaicite:0]{index=0}</strong></p>
-        <button onclick="alert('⛏️ Пригода починається!')">Почати пригоду</button>
-    </div>
+<div class="glass">
+<h1>Ласкаво просимо у світ <strong>:contentReference[oaicite:0]{index=0}</strong></h1>
+<p>
+Minecraft — це легендарна гра, яка дозволяє гравцям створювати власні світи,
+досліджувати біоми, будувати міста, механізми та навіть комп'ютери з редстоуну.
+</p>
+<p>
+Гра була створена компанією <strong>:contentReference[oaicite:1]{index=1}</strong>
+і стала однією з найпопулярніших ігор у світі.
+</p>
+<button onclick="alert('⛏️ Пригода починається!')">Почати пригоду</button>
+</div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-    <div class="glass">
-        <h1>Про гру</h1>
-        <p>
-        <strong>:contentReference[oaicite:1]{index=1}</strong> — це культова гра,
-        створена компанією <strong>:contentReference[oaicite:2]{index=2}</strong>.
-        Тут можна будувати, виживати та досліджувати світ.
-        </p>
-    </div>
+<div class="glass">
+<h1>Про Minecraft</h1>
+<p>
+У Minecraft немає обмежень — ти можеш будувати замки, ферми,
+створювати автоматичні системи та досліджувати безмежний світ.
+</p>
+<h2>Особливості гри:</h2>
+<p>• Відкритий світ без меж</p>
+<p>• Багато біомів (ліси, пустелі, океани, Nether, End)</p>
+<p>• Система крафту та виживання</p>
+<p>• Мультиплеєр та сервери</p>
+</div>
+</section>
+
+<!-- MODES -->
+<section id="modes">
+<div class="glass">
+<h1>Режими гри</h1>
+<h2>Survival</h2>
+<p>Виживай, добувай ресурси та бийся з мобами.</p>
+<h2>Creative</h2>
+<p>Необмежені ресурси для будівництва.</p>
+<h2>Hardcore</h2>
+<p>Одна смерть — і світ видаляється.</p>
+<h2>Adventure</h2>
+<p>Режим для карт і сюжетних пригод.</p>
+</div>
 </section>
 
 <!-- GALLERY -->
 <section id="gallery">
-    <div class="glass">
-        <h1>Галерея</h1>
-        <div class="gallery">
-            <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png">
-            <img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Survival_KeyArt.jpg">
-            <img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Creative_KeyArt.jpg">
-        </div>
-    </div>
+<div class="glass">
+<h1>Галерея</h1>
+<div class="gallery">
+<img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png">
+<img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Survival_KeyArt.jpg">
+<img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/Creative_KeyArt.jpg">
+</div>
+</div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-    <div class="glass">
-        <h1>Контакти</h1>
-        <form action="https://formsubmit.co/victorplay0911@gmail.com" method="POST">
-            <input type="text" name="name" placeholder="Твоє ім'я" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <textarea name="message" placeholder="Повідомлення" required></textarea>
-            <input type="hidden" name="_captcha" value="false">
-            <button type="submit">Відправити</button>
-        </form>
-    </div>
+<div class="glass">
+<h1>Контакти</h1>
+<form action="https://formsubmit.co/victorplay0911@gmail.com" method="POST">
+<input type="text" name="name" placeholder="Твоє ім'я" required>
+<input type="email" name="email" placeholder="Email" required>
+<textarea name="message" placeholder="Повідомлення" required></textarea>
+<input type="hidden" name="_captcha" value="false">
+<button type="submit">Відправити</button>
+</form>
+</div>
 </section>
 
-<footer>
-    © 2026 Minecraft Fan Site
-</footer>
+<footer>© 2026 Minecraft Fan Site</footer>
 
 <script>
-function showPage(pageId){
-    document.querySelectorAll("section").forEach(sec=>{
-        sec.classList.remove("active");
-    });
-    document.getElementById(pageId).classList.add("active");
+function showPage(id){
+document.querySelectorAll("section").forEach(sec=>{
+sec.classList.remove("active");
+});
+setTimeout(()=>{
+document.getElementById(id).classList.add("active");
+},50);
 }
+
+/* ===== PARTICLES ===== */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+const count=80;
+
+for(let i=0;i<count;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2+1,
+speedY:Math.random()*0.5+0.2
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,0.6)";
+particles.forEach(p=>{
+p.y+=p.speedY;
+if(p.y>canvas.height) p.y=0;
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fill();
+});
+requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener("resize",()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
 </script>
 
 </body>
